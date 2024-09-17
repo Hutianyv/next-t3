@@ -1,7 +1,14 @@
 import "@/styles/globals.css";
 
-import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
+import {
+  ClerkProvider,
+} from "@clerk/nextjs";
+import { zhCN } from "@clerk/localizations";
+
+import ThemeProvider from "@/components/ThemeProvider";
+import Header from "@/components/Header";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -13,8 +20,21 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
-      <body>{children}</body>
-    </html>
+    <ClerkProvider localization={zhCN}>
+      <html lang="zh-CN" suppressHydrationWarning>
+        <body>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            <div className="flex w-full flex-col items-center">{children}</div>
+            <Toaster />
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

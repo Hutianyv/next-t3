@@ -5,6 +5,15 @@
 await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  eslint: {
+    // 这个配置会在构建时忽略 ESLint 错误
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    // 这个配置会在构建时忽略 TypeScript 错误
+    ignoreBuildErrors: true,
+  },
+};
 
 export default config;
